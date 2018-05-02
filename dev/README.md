@@ -1,6 +1,6 @@
 # Quickstart
 
-This Dockerfile trace the latest dev version of qtum.
+This Dockerfile trace the latest dev version of recrypt.
 
 ## Get docker image
 
@@ -9,63 +9,63 @@ You might take either way:
 ### Pull a image from Public Docker hub
 
 ```
-$ docker pull qtum/qtum:dev
+$ docker pull recrypt/recrypt:dev
 ```
 
-### Or, build qtum image with provided Dockerfile
+### Or, build recrypt image with provided Dockerfile
 
 This is recommended since it ensures build the latest dev version.
 
 ```
-$docker build --rm -t qtum/qtum:dev .
+$docker build --rm -t recrypt/recrypt:dev .
 ```
 
-## Prepare data path and qtum.conf
+## Prepare data path and recrypt.conf
 
 In order to use user-defined config file, as well as save block chain data, -v option for docker is recommended.
 
-First chose a path to save qtum block chain data:
+First chose a path to save recrypt block chain data:
 
 ```
-sudo rm -rf /data/qtum-data
-sudo mkdir -p /data/qtum-data
-sudo chmod a+w /data/qtum-data
+sudo rm -rf /data/recrypt-data
+sudo mkdir -p /data/recrypt-data
+sudo chmod a+w /data/recrypt-data
 ```
 
-Create your config file, refer to the example [qtum.conf]!(https://github.com/qtumproject/qtum/blob/1a926b980f03e97322c7dd787835bec1730f35d2/contrib/debian/examples/qtum.conf). Note rpcuser and rpcpassword to required for later `qtum-cli` usage for docker, so it is better to set those two options. Then please create the file ${PWD}/qtum.conf with content:
+Create your config file, refer to the example [recrypt.conf]!(https://github.com/recryptproject/recrypt/blob/1a926b980f03e97322c7dd787835bec1730f35d2/contrib/debian/examples/recrypt.conf). Note rpcuser and rpcpassword to required for later `recrypt-cli` usage for docker, so it is better to set those two options. Then please create the file ${PWD}/recrypt.conf with content:
 
 ```
-rpcuser=qtum
-rpcpassword=qtumtest
+rpcuser=recrypt
+rpcpassword=recrypttest
 ```
-## Launch qtumd
+## Launch recryptd
 
-To launch qtum node:
+To launch recrypt node:
 
 ```
-## to launch qtumd
-$ docker run -d --rm --name qtum_node -v ${PWD}/qtum.conf:/root/.qtum/qtum.conf -v /data/qtum-data/:/root/.qtum/ qtum/qtum:dev qtumd
+## to launch recryptd
+$ docker run -d --rm --name recrypt_node -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt:dev recryptd
 
 ## check docker processed
 $ docker ps
 
-## to stop qtumd
-$ docker run -i --network container:qtum_node -v ${PWD}/qtum.conf:/root/.qtum/qtum.conf -v /data/qtum-data/:/root/.qtum/ qtum/qtum:dev qtum-cli stop
+## to stop recryptd
+$ docker run -i --network container:recrypt_node -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt:dev recrypt-cli stop
 ```
 
-`${PWD}/qtum.conf` will be used, and blockchain data saved under /data/qtum-data/
+`${PWD}/recrypt.conf` will be used, and blockchain data saved under /data/recrypt-data/
 
-## Interact with `qtumd` using `qtum-cli`
+## Interact with `recryptd` using `recrypt-cli`
 
-Use following docker command to interact with your qtum node with `qtum-cli`:
-
-```
-$ docker run -i --network container:qtum_node -v ${PWD}/qtum.conf:/root/.qtum/qtum.conf -v /data/qtum-data/:/root/.qtum/ qtum/qtum:dev qtum-cli getinfo
-```
-
-For more qtum-cli commands, use:
+Use following docker command to interact with your recrypt node with `recrypt-cli`:
 
 ```
-$ docker run -i --network container:qtum_node -v ${PWD}/qtum.conf:/root/.qtum/qtum.conf -v /data/qtum-data/:/root/.qtum/ qtum/qtum:dev qtum-cli help
+$ docker run -i --network container:recrypt_node -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt:dev recrypt-cli getinfo
+```
+
+For more recrypt-cli commands, use:
+
+```
+$ docker run -i --network container:recrypt_node -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt:dev recrypt-cli help
 ```
 

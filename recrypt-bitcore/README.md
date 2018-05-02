@@ -1,5 +1,7 @@
 # Quickstart
 
+This Dockerfile trace the latest dev version of recrypt-bitcore, which is forked of Bitcore to work on Recrypt - Not as well tested and primarily used for the extra RPC calls needed for the block explorer
+
 ## Get docker image
 
 You might take either way:
@@ -7,16 +9,16 @@ You might take either way:
 ### Pull a image from Public Docker hub
 
 ```
-$ docker pull recrypt/recrypt
+$ docker pull recrypt/recrypt-bitcore:latest
 ```
 
 ### Or, build recrypt image with provided Dockerfile
 
-```
-$docker build --rm -t recrypt/recrypt .
-```
+This is recommended since it ensures build the latest dev version of recrypt-bitcore.
 
-For historical versions, please visit [docker hub](https://hub.docker.com/r/recrypt/recrypt/)
+```
+$docker build --rm -t recrypt/recrypt-bitcore:latest .
+```
 
 ## Prepare data path and recrypt.conf
 
@@ -42,19 +44,13 @@ To launch recrypt node:
 
 ```
 ## to launch recryptd
-$ docker run -d --rm --name recrypt_node \
-             -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf \
-             -v /data/recrypt-data/:/root/.recrypt/ \
-             recrypt/recrypt recryptd
+$ docker run -d --rm --name recrypt_node -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt-bitcore:latest recryptd
 
 ## check docker processed
 $ docker ps
 
 ## to stop recryptd
-$ docker run -i --network container:recrypt_node \
-             -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf \
-             -v /data/recrypt-data/:/root/.recrypt/ \
-             recrypt/recrypt recrypt-cli stop
+$ docker run -i --network container:recrypt_node -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt-bitcore:latest recrypt-cli stop
 ```
 
 `${PWD}/recrypt.conf` will be used, and blockchain data saved under /data/recrypt-data/
@@ -64,18 +60,12 @@ $ docker run -i --network container:recrypt_node \
 Use following docker command to interact with your recrypt node with `recrypt-cli`:
 
 ```
-$ docker run -i --network container:recrypt_node \
-             -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf \
-             -v /data/recrypt-data/:/root/.recrypt/ \
-             recrypt/recrypt recrypt-cli getinfo
+$ docker run -i --network container:recrypt_node -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt-bitcore:latest recrypt-cli getinfo
 ```
 
 For more recrypt-cli commands, use:
 
 ```
-$ docker run -i --network container:recrypt_node \
-             -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf \
-             -v /data/recrypt-data/:/root/.recrypt/ \
-             recrypt/recrypt recrypt-cli help
+$ docker run -i --network container:recrypt_node -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt-bitcore:latest recrypt-cli help
 ```
 

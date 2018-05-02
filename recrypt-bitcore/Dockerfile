@@ -13,19 +13,19 @@ RUN set -ex \
 	&& apt-get install -y libzmq3-dev \
  	&& rm -rf /var/lib/apt/lists/*
 
-# install qtum from github
-RUN cd /tmp && git clone --recursive https://github.com/qtumproject/qtum-bitcore.git \
-	&& cd qtum-bitcore \
+# install recrypt from github
+RUN cd /tmp && git clone --recursive https://github.com/recryptproject/recrypt-bitcore.git \
+	&& cd recrypt-bitcore \
 	&& ./autogen.sh \
 	&& ./configure --without-gui \
 	&& make install  \
 	&& rm -rf /tmp/*
 
 # create data directory
-ENV QTUM_DATA /data
-RUN mkdir $QTUM_DATA \
-	&& ln -sfn $QTUM_DATA /root/.qtum \
+ENV RECRYPT_DATA /data
+RUN mkdir $RECRYPT_DATA \
+	&& ln -sfn $RECRYPT_DATA /root/.recrypt \
 VOLUME /data
 
-EXPOSE 3888 3889 13888 13889
-CMD ["qtumd"]
+EXPOSE 8488 8489 18488 18489
+CMD ["recryptd"]

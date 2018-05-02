@@ -1,6 +1,6 @@
 # Quickstart
 
-This is a qtum-qt image, launch GUI wallet
+This is a recrypt-qt image, launch GUI wallet
 
 ## Get docker image
 
@@ -9,48 +9,48 @@ To get the latest image, you might take either way:
 ### Pull a image from Public Docker hub
 
 ```
-$ docker pull qtum/qtum-qt
+$ docker pull recrypt/recrypt-qt
 ```
 
-### Or, build qtum image with provided Dockerfile
+### Or, build recrypt image with provided Dockerfile
 
 ```
-$docker build --rm -t qtum/qtum-qt .
+$docker build --rm -t recrypt/recrypt-qt .
 ```
 
-For historical versions, please visit [docker hub](https://hub.docker.com/r/qtum/qtum-qt/)
+For historical versions, please visit [docker hub](https://hub.docker.com/r/recrypt/recrypt-qt/)
 
-## Prepare data path & qtum.conf
+## Prepare data path & recrypt.conf
 
 In order to use user-defined config file, as well as save block chain data, -v option for docker is recommended.
 
-First chose a path to save qtum block chain data:
+First chose a path to save recrypt block chain data:
 
 ```
-sudo rm -rf /data/qtum-data
-sudo mkdir -p /data/qtum-data
-sudo chmod a+w /data/qtum-data
+sudo rm -rf /data/recrypt-data
+sudo mkdir -p /data/recrypt-data
+sudo chmod a+w /data/recrypt-data
 ```
 
-Create your config file, refer to the example [qtum.conf]!(https://github.com/qtumproject/qtum/blob/1a926b980f03e97322c7dd787835bec1730f35d2/contrib/debian/examples/qtum.conf). Then please create the file ${PWD}/qtum.conf with content:
+Create your config file, refer to the example [recrypt.conf]!(https://github.com/recryptproject/recrypt/blob/1a926b980f03e97322c7dd787835bec1730f35d2/contrib/debian/examples/recrypt.conf). Then please create the file ${PWD}/recrypt.conf with content:
 
 ```
-rpcuser=qtum
-rpcpassword=qtumtest
+rpcuser=recrypt
+rpcpassword=recrypttest
 ```
 
 User can set their own config file on demands.
 
-## Launch qtum-qt
+## Launch recrypt-qt
 
 For Linux:
 
 ```
 $ docker run -it --rm \
              -v /tmp/.X11-unix:/tmp/.X11-unix \
-             -v ${PWD}/qtum.conf:/root/.qtum/qtum.conf \
-             -v /data/qtum-data/:/root/.qtum/ \
-             -e DISPLAY  qtum/qtum-qt
+             -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf \
+             -v /data/recrypt-data/:/root/.recrypt/ \
+             -e DISPLAY  recrypt/recrypt-qt
 ```
 
 For Mac:
@@ -69,16 +69,16 @@ $ open -a Xquartz
 
 ## then set Xquartz preferences "Security-'Allow connections from network clients'"
 
-## launch qtum-qt 
-$ docker run -e DISPLAY=<your_ip>:0 -v ${PWD}/qtum.conf:/root/.qtum/qtum.conf -v /data/qtum-data/:/root/.qtum/ qtum/qtum-qt
+## launch recrypt-qt 
+$ docker run -e DISPLAY=<your_ip>:0 -v ${PWD}/recrypt.conf:/root/.recrypt/recrypt.conf -v /data/recrypt-data/:/root/.recrypt/ recrypt/recrypt-qt
 
 ```
 
 
-`${PWD}/qtum.conf` will be used, and blockchain data saved under /data/qtum-data/
+`${PWD}/recrypt.conf` will be used, and blockchain data saved under /data/recrypt-data/
 
 
-## exit qtum-qt
+## exit recrypt-qt
 
 Exit the gui wallet in normal way.
 
